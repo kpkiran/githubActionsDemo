@@ -1,8 +1,20 @@
-name: hello-world
-"on": push
+name: Playwright-Test
+"on":
+  push:
+    branches:
+      - main
 jobs:
-  my-job:
+  Playwright-run:
     runs-on: ubuntu-latest
     steps:
-      - name: my-step
-        run: echo "Hello World"
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1
+
+      - uses: microsoft/playwright-github-action@v1
+
+      - name: install dependencies
+        run: npm install
+
+      - name: Playwright-step
+        run: npm test
