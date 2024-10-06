@@ -28,6 +28,8 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
 
+  testMatch: ["**.test.ts"],
+
   /* Configure projects for major browsers */
   projects: [
     {
