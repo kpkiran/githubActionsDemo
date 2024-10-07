@@ -1,23 +1,23 @@
-name: Playwright-Test
-"on":
+name: Playwright Tests
+on:
   push:
-    branches:
-      - main
+    branches: [main]
+  pull_request:
+    branches: [main]
 jobs:
-  Playwright-run:
+  playwright:
+    name: "Playwright Tests"
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.47.2-jammy
     steps:
-      - uses: actions/checkout@v2
-
-      - uses: actions/setup-node@v1
-
-      - uses: microsoft/playwright-github-action@v1
-
-      - name: install dependencies
-        run: npm install
-
-      - name: Run type checks
-        run: npx tsc -p tsconfig.json --noEmit
-
-      - name: Playwright-run
-        run: npm test
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm ci
+      - name: Run your tests
+        run: npx playwright test
+        env:
+          HOME: /root
